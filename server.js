@@ -22,10 +22,7 @@ app.get('/', (req, res) => {
 
 // Available models to try
 const GEMINI_MODELS = [
-    'gemini-pro',
-    'gemini-1.5-flash',
-    'gemini-1.5-pro',
-    'models/gemini-pro'
+    'gemini-1.5-flash'
 ];
 
 // Chat endpoint with multiple model fallback
