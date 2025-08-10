@@ -2,6 +2,10 @@
 
 An experimental chatbot application built with Node.js and Express, using Google's Gemini AI model. This is a learning project to explore AI integration and basic web development.
 
+![AI Chat Bot Demo](./images/chat-demo.png)
+
+*Screenshot of the AI Chat Bot interface*
+
 ## ✨ Features
 
 - 💬 **Basic Chat Interface**: Simple web-based chat with an AI bot
@@ -129,11 +133,11 @@ ai-chat-app/
 ├── README.md                  # This documentation
 ├── LICENSE                    # License file (optional)
 ├── public/                    # Static files served by Express
-│   ├── index.html             # Main chat interface
-│   ├── style.css              # Styles (if separate from HTML)
-│   └── script.js              # Client-side JavaScript (if separate)
-└── .vscode/                   # VS Code settings (optional)
-    └── launch.json            # Debug configuration for VS Code users
+│   ├── index.html            # Main chat interface
+│   ├── style.css             # Styles (if separate from HTML)
+│   └── script.js             # Client-side JavaScript (if separate)
+└── .vscode/                  # VS Code settings (optional)
+    └── launch.json           # Debug configuration for VS Code users
 ```
 
 **Essential files you need:**
