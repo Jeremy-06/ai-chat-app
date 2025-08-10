@@ -121,12 +121,34 @@ Press `Ctrl + C` in the terminal to stop the server.
 Your folder should look like this:
 ```
 ai-chat-app/
-├── server.js          # Main server file
-├── package.json       # Project info and dependencies
-├── .env               # Your API key (keep private!)
-└── public/
-    └── index.html     # Chat interface
+├── server.js                  # Main Express server file
+├── package.json               # Project dependencies and scripts
+├── package-lock.json          # Exact dependency versions (auto-generated)
+├── .env                       # Environment variables (contains your API key)
+├── .gitignore                 # Files to ignore in Git
+├── README.md                  # This documentation
+├── LICENSE                    # License file (optional)
+├── public/                    # Static files served by Express
+│   ├── index.html             # Main chat interface
+│   ├── style.css              # Styles (if separate from HTML)
+│   └── script.js              # Client-side JavaScript (if separate)
+└── .vscode/                   # VS Code settings (optional)
+    └── launch.json            # Debug configuration for VS Code users
 ```
+
+**Essential files you need:**
+- `server.js` - Your main server code
+- `package.json` - Lists your dependencies (express, dotenv, etc.)
+- `.env` - Your Google API key goes here (don't share this file)
+- `public/index.html` - The chat interface users see
+
+**Auto-generated files:**
+- `package-lock.json` - Created when you run `npm install`
+- `node_modules/` - Dependencies folder (ignored by Git)
+
+**Optional files:**
+- `.vscode/launch.json` - Helps VS Code users run/debug the app
+- Separate CSS/JS files - You can put styles and scripts in separate files or keep them in `index.html`
 
 ## 🐛 Common Issues
 
