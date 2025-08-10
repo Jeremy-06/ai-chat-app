@@ -220,6 +220,49 @@
             line-height: 1.5;
         }
 
+        /* Markdown styling */
+        .message-text strong {
+            font-weight: 700;
+        }
+
+        .message-text em {
+            font-style: italic;
+        }
+
+        .message-text code {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .user-message .message-text code {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .message-text ul, .message-text ol {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        .message-text li {
+            margin-bottom: 4px;
+        }
+
+        .message-text pre {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 12px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 8px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .user-message .message-text pre {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
         .input-container {
             padding: 25px;
             background: white;
@@ -414,6 +457,33 @@
             }
         }
 
+        // Function to convert basic markdown to HTML
+        function formatMarkdown(text) {
+            return text
+                // Bold text: **text** or __text__
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/__(.*?)__/g, '<strong>$1</strong>')
+                // Italic text: *text* or _text_
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/_(.*?)_/g, '<em>$1</em>')
+                // Inline code: `code`
+                .replace(/`(.*?)`/g, '<code>$1</code>')
+                // Line breaks
+                .replace(/\n/g, '<br>')
+                // Basic list items (simple implementation)
+                .replace(/^\* (.+)/gm, '<li>$1</li>')
+                .replace(/^- (.+)/gm, '<li>$1</li>')
+                .replace(/^\d+\. (.+)/gm, '<li>$1</li>');
+        }
+
+        // Function to wrap list items in ul tags
+        function wrapLists(text) {
+            // Wrap consecutive <li> elements in <ul>
+            return text.replace(/(<li>.*?<\/li>)(?:\s*<br>\s*<li>.*?<\/li>)*/g, function(match) {
+                return '<ul>' + match.replace(/<br>/g, '') + '</ul>';
+            });
+        }
+
         function addMessage(sender, message, type = 'ai') {
             clearWelcome();
             
@@ -425,11 +495,18 @@
             else if (type === 'ai') avatarContent = '🤖';
             else avatarContent = '⚠️';
             
+            // Format the message if it's from AI
+            let formattedMessage = message;
+            if (type === 'ai') {
+                formattedMessage = formatMarkdown(message);
+                formattedMessage = wrapLists(formattedMessage);
+            }
+            
             messageDiv.innerHTML = `
                 <div class="message-avatar ${type}-avatar">${avatarContent}</div>
                 <div class="message-content">
                     <div class="message-sender">${sender}</div>
-                    <div class="message-text">${message}</div>
+                    <div class="message-text">${formattedMessage}</div>
                 </div>
             `;
             
@@ -496,13 +573,13 @@
                 if (data.reply) {
                     addMessage("AI Assistant", data.reply, 'ai');
                 } else if (data.error) {
-                    addMessage("System", `❌ Error: ${data.error}`, 'system');
+                    addMessage("System", `Error: ${data.error}. Please try again.`, 'system');
                 } else {
-                    addMessage("System", "❌ No reply from AI", 'system');
+                    addMessage("System", "Unable to receive response from AI service. Please try again.", 'system');
                 }
             } catch (error) {
                 hideTypingIndicator();
-                addMessage("System", `❌ Connection Error: ${error.message}`, 'system');
+                addMessage("System", `Connection Error: Unable to reach the server. Please check your internet connection and try again.`, 'system');
             } finally {
                 // Re-enable input and button
                 userInput.disabled = false;
