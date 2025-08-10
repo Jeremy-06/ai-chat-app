@@ -133,11 +133,11 @@ ai-chat-app/
 ├── README.md                  # This documentation
 ├── LICENSE                    # License file (optional)
 ├── public/                    # Static files served by Express
-│   ├── index.html            # Main chat interface
-│   ├── style.css             # Styles (if separate from HTML)
-│   └── script.js             # Client-side JavaScript (if separate)
-└── .vscode/                  # VS Code settings (optional)
-    └── launch.json           # Debug configuration for VS Code users
+│   ├── index.html             # Main chat interface
+│   ├── style.css              # Styles (if separate from HTML)
+│   └── script.js              # Client-side JavaScript (if separate)
+└── .vscode/                   # VS Code settings (optional)
+    └── launch.json            # Debug configuration for VS Code users
 ```
 
 **Essential files you need:**
